@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+
+    <changeSet id="202201252113" author="lightthe">
+        <insert tableName="node">
+            <column name="id" value="1"/>
+            <column name="type" value="1"/>
+            <column name="description" value="Tubarão"/>
+            <column name="yes_id" value="null"/>
+            <column name="no_id" value="null"/>
+        </insert>
+        <insert tableName="node">
+            <column name="id" value="2"/>
+            <column name="type" value="1"/>
+            <column name="description" value="Macaco"/>
+            <column name="yes_id" value="null"/>
+            <column name="no_id" value="null"/>
+        </insert>
+        <insert tableName="node">
+            <column name="id" value="3"/>
+            <column name="type" value="0"/>
+            <column name="description" value="vive na água"/>
+            <column name="yes_id" value="1"/>
+            <column name="no_id" value="2"/>
+        </insert>
+    </changeSet>
+</databaseChangeLog>

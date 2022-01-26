@@ -1,0 +1,14 @@
+spring:
+  application:
+    name: JogoAnimal
+  datasource:
+    url: jdbc:h2:mem:mydb
+    username: jogo
+    password: animal
+    driverClassName: org.h2.Driver
+  jpa:
+    spring.jpa.database-platform: org.hibernate.dialect.H2Dialect
+  liquibase:
+    change-log: classpath:/config/liquibase/master.xml
+  h2:
+    console.enabled: true
