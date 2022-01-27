@@ -1,8 +1,8 @@
-package light.the.jogoanimal.service;
+package light.the.JogoAnimal.service;
 
-import light.the.jogoanimal.domain.Node;
-import light.the.jogoanimal.repository.NodeRepository;
-import light.the.jogoanimal.utils.EnumNodeType;
+import light.the.JogoAnimal.domain.Node;
+import light.the.JogoAnimal.repository.NodeRepository;
+import light.the.JogoAnimal.utils.EnumNodeType;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -14,15 +14,20 @@ import javax.transaction.Transactional;
 public class NodeService {
     private final NodeRepository nodeRepository;
 
-    public Node getNodeByID(Long id) throws Exception{
-        return nodeRepository.findById(id).orElseThrow(Exception::new);
+    public Node findNodeByID(Long id) {
+        return nodeRepository.findById(id).orElseThrow(() -> new RuntimeException());
     }
 
-    public Node getNext(Node current, Boolean isYes) throws Exception {
+    public Node getRootNode(){
+        return nodeRepository.getRootNode();
+    }
+
+    public Node getNext(Long currentId, Boolean isYes) {
+        Node current = findNodeByID(currentId);
         if(Boolean.TRUE.equals(isYes)){
-            return getNodeByID(current.getYesNode().getId());
+            return findNodeByID(current.getYesNode().getId());
         }
-            return getNodeByID(current.getNoNode().getId());
+            return findNodeByID(current.getNoNode().getId());
     }
 
     public Node AddParent(Node current, Node newChild){

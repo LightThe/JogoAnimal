@@ -1,4 +1,4 @@
-package light.the.jogoanimal.utils;
+package light.the.JogoAnimal.utils;
 
 import java.io.Serializable;
 

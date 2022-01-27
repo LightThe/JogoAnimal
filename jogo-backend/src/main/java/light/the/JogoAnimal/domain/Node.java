@@ -1,6 +1,6 @@
-package light.the.jogoanimal.domain;
+package light.the.JogoAnimal.domain;
 
-import light.the.jogoanimal.utils.EnumNodeType;
+import light.the.JogoAnimal.utils.EnumNodeType;
 import lombok.Getter;
 import lombok.Setter;
 
