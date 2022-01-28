@@ -24,11 +24,11 @@ public class Node implements Serializable {
     @Column(name = "description")
     String description;
 
-    @OneToOne
+    @OneToOne(cascade=CascadeType.ALL)
     @JoinColumn(name = "yes_id", referencedColumnName = "id")
     Node yesNode;
 
-    @OneToOne
+    @OneToOne(cascade=CascadeType.ALL)
     @JoinColumn(name = "no_id", referencedColumnName = "id")
     Node noNode;
 }

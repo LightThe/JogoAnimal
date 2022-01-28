@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { JogoService } from '../jogo.service';
 import { NodeModel, NodeType } from '../node.model';
+import { MatDialog } from '@angular/material/dialog';
+import { WinDialogComponent } from '../win-dialog/win-dialog.component';
 
 @Component({
   selector: 'app-jogo-animal',
@@ -9,7 +11,7 @@ import { NodeModel, NodeType } from '../node.model';
 })
 export class JogoAnimalComponent implements OnInit {
 
-  constructor(private jogoService: JogoService) { }
+  constructor(private jogoService: JogoService, public dialog: MatDialog) { }
 
   ngOnInit(): void {
   }
@@ -31,7 +33,6 @@ export class JogoAnimalComponent implements OnInit {
     if(!this.gameStart) {
       this.jogoService.getRootNode().subscribe( res => {
         this.currentNode = res;
-        console.log(this.currentNode.type);
       })
     }
     this.gameStart = true;
@@ -59,12 +60,14 @@ export class JogoAnimalComponent implements OnInit {
     //Se o nó atual for um Animal, decide se deve adicionar mais dados ou encerrar o jogo.
     if(this.isCurrentAnimal && isYes) {
       //victory
+      this.dialogVitoria();
     }
     else if(this.isCurrentAnimal){
       this.enableInsertAnimal = true;
     }
   }
 
+  //cria a regra nova para aquele animal e atualiza as referências do nó pai
   addNovaRegra(nomeRegra: string){
     if(!!nomeRegra){
       this.novaRegra = new NodeModel();
@@ -74,16 +77,14 @@ export class JogoAnimalComponent implements OnInit {
       this.novaRegra.noNode = this.currentNode;
       this.jogoService.createNode(this.novaRegra).subscribe(res => {
         this.novaRegra = res;
-        console.log(this.novaRegra);
       });
       if(this.parentNode.yesNode.id == this.currentNode.id){
-        this.parentNode.yesNode.id = this.novaRegra.id;
+        this.parentNode.yesNode = this.novaRegra;
       }
       else{
-        this.parentNode.noNode.id = this.novaRegra.id;
+        this.parentNode.noNode = this.novaRegra;
       }
       this.jogoService.updateNode(this.parentNode).subscribe(res => {
-        console.log(res);
         this.gameStart = !this.gameStart;
         this.isRegraEnabled = !this.isRegraEnabled;
         this.enableInsertAnimal = !this.enableInsertAnimal;
@@ -91,6 +92,7 @@ export class JogoAnimalComponent implements OnInit {
     }
   }
 
+  //cria o animal digitado e habilita os campos para criar a regra nova.
   enableRegra(nomeAnimal: string){
     if(!!nomeAnimal){
       this.novoAnimal = new NodeModel();
@@ -98,10 +100,16 @@ export class JogoAnimalComponent implements OnInit {
       this.novoAnimal.description = nomeAnimal;
       this.jogoService.createNode(this.novoAnimal).subscribe(res => {
         this.novoAnimal = res;
-        console.log(this.novoAnimal);
       })
       this.isRegraEnabled = !this.isRegraEnabled;
     }
+  }
+
+  dialogVitoria(): void{
+    const dialogRef = this.dialog.open(WinDialogComponent);
+    dialogRef.afterClosed().subscribe(() => {
+      this.gameStart = !this.gameStart;
+    })
   }
 
 }
