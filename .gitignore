@@ -23,3 +23,46 @@ target/
 
 ### VS Code ###
 .vscode/
+
+
+# Compiled output
+/jogo-webclient/dist
+/jogo-webclient/tmp
+/jogo-webclient/out-tsc
+/jogo-webclient/bazel-out
+
+# Node
+/jogo-webclient/node_modules
+npm-debug.log
+yarn-error.log
+
+# IDEs and editors
+.idea/
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
+
+# Visual Studio Code
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+.history/*
+
+# Miscellaneous
+/jogo-webclient/.angular/cache
+.sass-cache/
+/jogo-webclient/connect.lock
+/jogo-webclient/coverage
+/jogo-webclient/libpeerconnection.log
+testem.log
+/jogo-webclient/typings
+
+# System files
+.DS_Store
+Thumbs.db
+jogo-webclient/.editorconfig

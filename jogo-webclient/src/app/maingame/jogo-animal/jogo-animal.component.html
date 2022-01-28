@@ -1,0 +1,30 @@
+<mat-card *ngIf="!gameStart">
+    <p>Pense em um animal</p>
+    <button mat-flat-button color='primary' (click)='iniciarJogo()'>
+        Começar
+    </button>
+</mat-card>
+<mat-card *ngIf="gameStart">
+    <p>Seu animal <span *ngIf="isCurrentAnimal">é um</span> {{currentNode.description}} ?</p>
+    <button mat-flat-button color='primary' (click)='proximoNode(true)'>
+        Sim
+    </button>
+    <button mat-flat-button color='accent' (click)='proximoNode(false)'>
+        Não
+    </button>
+</mat-card>
+<mat-card *ngIf="enableInsertAnimal">
+    <mat-form-field>
+        <mat-label>Qual animal você pensou?</mat-label>
+        <input matInput type="text" id="nomeAnimal" name="nomeAnimal" #nomeAnimal>
+    </mat-form-field>
+    <button mat-flat-button color='primary' (click)="enableRegra(nomeAnimal.value)" *ngIf="!isRegraEnabled">
+        Confirmar
+    </button>
+    <div *ngIf="isRegraEnabled">
+        <p>Um {{novoAnimal.description}} <input type="text" id="nomeAnimal" name="nomeAnimal" #nomeRegra> e um {{currentNode.description}} não</p>
+        <button mat-flat-button color='primary' (click)="addNovaRegra(nomeRegra.value)">
+            Confirmar
+        </button>
+    </div>
+</mat-card>

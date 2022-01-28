@@ -25,24 +25,24 @@ public class JogoController {
     }
 
     /**
-     * GET {id}/yes: Busca o próximo nó usando sim como resposta
+     * GET {id}/yes: Busca o próximo nó usando sim como resposta TODO:refactor
      * @param id ID do nó atual
      * @return Node correspondente ao próximo na árvore
      */
-    @GetMapping("{id}/yes")
+    @GetMapping("{id}")
     public ResponseEntity<Node> getNext(@PathVariable("id") Long id){
-        return ResponseEntity.ok(nodeService.getNext(id, true));
+        return ResponseEntity.ok(nodeService.findNodeByID(id));
     }
 
-    /**
-     * GET {id}/no: Busca o próximo nó usando não como resposta
-     * @param id ID do nó atual
-     * @return Node correspondente ao próximo na árvore
-     */
-    @GetMapping("{id}/no")
-    public ResponseEntity<Node> getNextFalse(@PathVariable("id") Long id){
-        return ResponseEntity.ok(nodeService.getNext(id, false));
-    }
+//    /**
+//     * GET {id}/no: Busca o próximo nó usando não como resposta
+//     * @param id ID do nó atual
+//     * @return Node correspondente ao próximo na árvore
+//     */
+//    @GetMapping("{id}/no")
+//    public ResponseEntity<Node> getNextFalse(@PathVariable("id") Long id){
+//        return ResponseEntity.ok(nodeService.getNext(id, false));
+//    }
 
     /**
      * POST new: Cria um novo nó
@@ -60,7 +60,7 @@ public class JogoController {
      * @param nodeWithNewRefs Nó atualizado com novas referẽncias
      * @return Node atualizado na base de dados.
      */
-    @PutMapping
+    @PutMapping("update")
     public ResponseEntity<Node> updateNodeRefs(@RequestBody Node nodeWithNewRefs){
         return ResponseEntity.ok(nodeService.persistNode(nodeWithNewRefs));
     }
